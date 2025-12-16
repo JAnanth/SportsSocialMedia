@@ -109,11 +109,23 @@ const AppNavigator = () => {
     );
   }
 
+  // Helper function to safely check if user has favorite teams
+  const hasFavoriteTeams = () => {
+    if (!user || !user.favorite_teams) return false;
+    if (Array.isArray(user.favorite_teams)) {
+      return user.favorite_teams.length > 0;
+    }
+    return false;
+  };
+
+  const shouldShowMainApp = isAuthenticated && hasFavoriteTeams();
+  const shouldShowOnboarding = isAuthenticated && !hasFavoriteTeams();
+
   return (
     <NavigationContainer>
-      {isAuthenticated && user?.favorite_teams?.length > 0 ? (
+      {shouldShowMainApp ? (
         <MainStack />
-      ) : isAuthenticated ? (
+      ) : shouldShowOnboarding ? (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
         </Stack.Navigator>
