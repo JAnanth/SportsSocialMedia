@@ -21,7 +21,7 @@ const server = http.createServer(app);
 // CORS configuration
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(',')
-  : ['http://localhost:8081', 'http://localhost:19006'];
+  : ['http://localhost:8081', 'http://localhost:19006', 'http://localhost:5173'];
 
 // Middleware
 app.use(helmet());
